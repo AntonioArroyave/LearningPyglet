@@ -1,4 +1,5 @@
 import pygame
+import pyglet
 from pygame.locals import *
 from math import *
 from OpenGL.GL import *
@@ -76,10 +77,11 @@ def main():
 
         glRotatef(1, 3, 1, 1)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        #glClearColor(1,1,1,1)
         for i in range(0,n):
             for j in range(0,n):
                 for l in range(0,n):
-                    Octahedron(i,j,l)
+                    Octahedron(2*i,2*j,2*l)
         pygame.display.flip()
         pygame.time.wait(10)
 

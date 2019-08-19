@@ -2,7 +2,7 @@ import pyglet
 from pyglet.gl import *
 
 window = pyglet.window.Window()
-label = pyglet.text.Label('Hello kathe', font_name='Times New Roman', font_size=36, color=(200,200,200,200), x = window.width//2, y=window.height//2, anchor_x='center', anchor_y='center')
+label = pyglet.text.Label('Hello I am Learning Pyglet', font_name='Times New Roman', font_size=36, color=(200,200,200,200), x = window.width//2, y=window.height//2, anchor_x='center', anchor_y='center')
 image = pyglet.resource.image('magos.png')
 
 @window.event
