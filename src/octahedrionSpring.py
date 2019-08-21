@@ -1,24 +1,26 @@
 import pygame
 from pygame.locals import *
-from math import sqrt
+from math import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
-import numpy 
 
-def distance(x,y,verticies):
-    result = ((sqrt((verticies[x][0]-verticies[y][0])**2+(verticies[x][1]-verticies[y][1])**2+((verticies[x][2]-verticies[y][2])**2))))
-    print(result)
-    return result
 
-def Grid(xSize, ySize, step):
-    xAxis = numpy.arange(-(xSize/2), (xSize/2), step)
-    yAxis = numpy.arange(-(ySize/2), (ySize/2), step)
-    verticies = [[x,y,((x**2)-(y**2))] for x in xAxis for y in yAxis]
-    verticiesIndex = [ x for x in range(0, len(verticies),1)]
-    edges = [[x,y] for x in verticiesIndex for y in verticiesIndex if ((x!=y) and (y!=x) and (distance(x,y, verticies)<=step+0.5))]
-    print("verticies"+str(verticies))
-    print("verticiesIndex"+str(verticiesIndex))
-    print("edges"+str(edges))
+def Octahedron(dx=(0), dy=(0), dz=(0), F=(1)):
+    phi = (1+sqrt(5))/(2)
+    verticies = (
+    ((1+dx)*F, (0+dy)*F, (0+dz)*F),
+    ((-1+dx)*F, (0+dy)*F, (0+dz)*F),
+    ((0+dx)*F, (-1+dy)*F, (0+dz)*F),
+    ((0+dx)*F, (1+dy)*F, (0+dz)*F),
+    ((0+dx)*F, (0+dy)*F, (1+dz)*F),
+    ((0+dx)*F, (0+dy)*F, (-1+dz)*F),
+    )
+    edges = (
+    (0,3), (3,1), (1,2), (2,0),
+    (0,4), (1,4), (2,4), (3,4),
+    (0,5), (1,5), (2,5), (3,5),
+    )
+
     glBegin(GL_LINES)
     for edge in edges:
         for vertex in edge:
@@ -28,13 +30,15 @@ def Grid(xSize, ySize, step):
 
 def main():
     pygame.init()
-    display = (800,600)
+    display = (1500,700)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
 
-    glTranslatef(0.0,0.0, -10)
+    glTranslatef(0.0,0.0, -10.0)
 
+    n = 1
+    loopNumber = 0
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -50,6 +54,11 @@ def main():
                     glTranslatef(0,1,0)
                 if event.key == pygame.K_DOWN:
                     glTranslatef(0,-1,0)
+                if event.key == pygame.K_0:
+                    n+=1
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    quit()
 
             if event.type ==  pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:
@@ -59,7 +68,12 @@ def main():
 
         glRotatef(1, 3, 1, 1)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-        Grid(2,2, 1)
+        loopNumber +=1
+        F=sin(loopNumber/pi)
+        for i in range(0,n):
+            for j in range(0,n):
+                for l in range(0,n):
+                    Octahedron(i,j,l,F)
         pygame.display.flip()
         pygame.time.wait(10)
 

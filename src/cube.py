@@ -28,7 +28,7 @@ def Tetrahedron():
 
 def main():
     pygame.init()
-    display = (800,600)
+    display = (1500,700)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
@@ -39,6 +39,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                quit()
+
+            if event.type == pygame.K_ESCAPE:
+                pygame.qui()
                 quit()
 
         glRotatef(1, 3, 1, 1)

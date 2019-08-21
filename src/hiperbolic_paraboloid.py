@@ -16,7 +16,7 @@ class surface:
         self.one_side = self.number_of_squares/2 # Number of squares in one side; rigth, left
         self.number_of_verticies = (number_of_squares)**number_of_dimensions
         V = [x for x in np.arange(-length/2, (length/2)+self.step, self.step)]
-        V = [[x,y, (x**2)+(y**2)] for x in V for y in V] # here must be replace for de desired function of z 
+        V = [[x,y, 0.5*(x**3)+0.5*(y**3)] for x in V for y in V] # here must be replace for de desired function of z 
         self.verticies = np.asarray(V)
         self.verticies_index = [x for x in range(0,self.verticies.shape[0])]
         self.edges = [[x,y] for x in self.verticies_index for y in self.verticies_index if ((x!=y) and (y!=x) and ((sqrt((self.verticies[x][0]-self.verticies[y][0])**2+(self.verticies[x][1]-self.verticies[y][1])**2))<=self.step))]
@@ -31,7 +31,7 @@ def draw_edge_verticies_object(verticies, edges):
 
 def main():
     pygame.init()
-    display = (400,200)
+    display = (1500,700)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
