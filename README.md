@@ -1,6 +1,6 @@
 # LearningPyglet
 
-### A collection of python scripts for drawing beatiful figures like platonic solids ans some surfaces.
+### A collection of python scripts for drawing beatiful figures like platonic solids and some surfaces.
 <p align="center">
   <img src="https://media.giphy.com/media/MdG7pR68w68ZkH9W5p/giphy.gif"/>
  <img src="https://media.giphy.com/media/Md4DMWcmaYZSkDfHVo/giphy.gif"/>
